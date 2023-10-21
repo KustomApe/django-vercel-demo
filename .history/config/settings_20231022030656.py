@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # self installed
-    'vehicle.apps.VehicleConfig',
+    'vehicle.apps.Vehicle'
 ]
 
 MIDDLEWARE = [
