@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href='{% static "css/html5doctor.css" %}' />
+    <link rel="stylesheet" type="text/css" href='{% static "css/common.css" %}' />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <title>Carkuru{% block title %}{% endblock %}</title>
+    <meta name="description" content="CtoCの旧国産車とスーパーカー取り扱い専門プラットフォーム">
+    <meta name="keywords" content="Carkuru,中古車,旧車,日本車,ドリフト,スーパーカー">
+    <link rel='shortcut icon' href='{% static "img/favicon.ico" %}'>
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+            <h1 id="logo_img"><a href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" alt="Carkuruロゴ"></a>
+            </h1>
+            <nav id="nav">
+                {% if user.id  %}
+                <p class="logging_menu">{{ user.username }}<span class="splitter"> / </span><a
+                        href="{% url 'account_logout' %}">Logout</a></p>
+                {% else %}
+                <p class="logging_menu"><a href="{% url 'line_login' %}">Login</a></p>
+                {% endif %}
+            </nav>
+            <form action="{% url 'search_vehicles' %}" method="GET" class="form_container">
+                {% csrf_token %}
+                <input type="search" name="keywords" placeholder="キーワードで探す">
+                <div class="search"></div>
+            </form>
+            <div id="header_content">
+                <p class="stock_info"><span class="font_color">{{ vehicles_counter }}</span>台のクルマがあなたを待っています。</p>
+            </div>
+        </header>
+    </div>
+    {% block content %}
+
+    {% endblock content %}
+    <!-- Footer -->
+    <footer id="footer">
+        <small>Copyright&copy;<span class="year">2019 - 2023</span> - Carkuru All Rights Reserved.</small>
+    </footer>
+    <script type="text/javascript" src="{% static 'js/validate.js' %}"></script>
+</body>
+
+</html>

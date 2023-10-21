@@ -1,0 +1,209 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% load humanize %}
+{% block title %} | Home{% endblock %}
+
+{% block content %}
+{{ demo }}
+<div class="wrapper">
+    <h3 class="section_titles_top">Updates - 新着車輌</h3>
+    <div id="vehicle_list">
+        {% if vehicles %}
+        {% for vehicle in vehicles %}
+        <ul id="vehicles" class="card">
+            <li class="image"><img src="../media/{{vehicle.image}}"></li>
+            <li class="name transition">{{ vehicle.model_num }} - {{ vehicle.name }}</li>
+            <li class="v_values maker">{{ vehicle.maker }}</li>
+            <li class="v_values region">{{ vehicle.region }}</li>
+            <li class="v_values transmission">{{ vehicle.transmission }}</li>
+            <li class="v_values body_type">{{ vehicle.body_type }}</li>
+            <li class="v_values price">{{ vehicle.price | intcomma }}円</li>
+            <li class="v_values car_age">{{ vehicle.car_age }}</li>
+            <li class="v_values repair_record">{{ vehicle.repair_record }}</li>
+            <li class="v_values status">{{ vehicle.status }}</li>
+            <li class="cta-container transition"><a href="{% url 'vehicle' vehicle.id %}" class="cta">詳細を見る</a></li>
+        </ul>
+        {% endfor %}
+        {% else %}
+        <p>現在該当する車輌がございません。</p>
+        {% endif %}
+    </div>
+    <section class="find_with_details">
+        <div id="maker_list">
+            <h3 class="section_titles_top">Maker - メーカーで探す</h3>
+            <form action="{% url 'search_vehicles' %}" method="GET">
+                {% csrf_token %}
+                <input id="toyota" class="maker__input" type="checkbox" name="keywords" value="トヨタ" />
+                <label class="maker__label" for="toyota">トヨタ</label>
+                <input id="nissan" class="maker__input" type="checkbox" name="keywords" value="日産" />
+                <label class="maker__label" for="nissan">日産</label>
+                <input id="mazda" class="maker__input" type="checkbox" name="keywords" value="マツダ" />
+                <label class="maker__label" for="mazda">マツダ</label>
+                <input id="subaru" class="maker__input" type="checkbox" name="keywords" value="スバル" />
+                <label class="maker__label" for="subaru">スバル</label>
+                <input id="honda" class="maker__input" type="checkbox" name="keywords" value="ホンダ" />
+                <label class="maker__label" for="honda">ホンダ</label>
+                <input id="others" class="maker__input" type="checkbox" name="keywords" value="その他" />
+                <label class="maker__label" for="others">その他</label>
+            <!-- </form> -->
+        </div>
+    </section>
+    <section class="detail_filtering">
+        <div class="detail_settings">
+            <h3 class="section_titles">Mileage - 距離</h3>
+            <form action="{% url 'search_vehicles' %}" method="GET">
+                <select class="filter_conditions left">
+                    <option value="">選択する</option>
+                    <option value="500" name="keywords">〜500km</option>
+                    <option value="1000" name="keywords">〜1000km</option>
+                    <option value="3000" name="keywords">〜3000km</option>
+                    <option value="5000" name="keywords">〜5000km</option>
+                    <option value="7000" name="keywords">〜7000km</option>
+                    <option value="10000" name="keywords">〜10,000km</option>
+                    <option value="20000" name="keywords">〜20,000km</option>
+                    <option value="30000" name="keywords">〜30,000km</option>
+                    <option value="40000" name="keywords">〜40,000km</option>
+                    <option value="50000" name="keywords">〜50,000km</option>
+                    <option value="60000" name="keywords">〜60,000km</option>
+                    <option value="70000" name="keywords">〜70,000km</option>
+                    <option value="80000" name="keywords">〜80,000km</option>
+                    <option value="90000" name="keywords">〜90,000km</option>
+                    <option value="100000" name="keywords">〜100,000km</option>
+                    <option value="110000" name="keywords">〜110,000km</option>
+                    <option value="120000" name="keywords">〜120,000km</option>
+                    <option value="130000" name="keywords">〜130,000km</option>
+                    <option value="140000" name="keywords">〜140,000km</option>
+                    <option value="150000" name="keywords">〜150,000km</option>
+                </select>
+            <!-- </form> -->
+        </div>
+        <div class="detail_settings">
+            <h3 class="section_titles">Price - 価格</h3>
+            <!-- <form action="{% url 'search_vehicles' %}" method="GET"> -->
+                <select class="filter_conditions center">
+                    <option value="">選択する</option>
+                    <option value="5" name="price">〜5万円</option>
+                    <option value="10" name="price">〜10万円</option>
+                    <option value="15" name="price">〜15万円</option>
+                    <option value="20" name="price">〜20万円</option>
+                    <option value="25" name="price">〜25万円</option>
+                    <option value="30" name="price">〜30万円</option>
+                    <option value="35" name="price">〜35万円</option>
+                    <option value="40" name="price">〜40万円</option>
+                    <option value="45" name="price">〜45万円</option>
+                    <option value="50" name="price">〜50万円</option>
+                    <option value="55" name="price">〜55万円</option>
+                    <option value="60" name="price">〜60万円</option>
+                    <option value="65" name="price">〜65万円</option>
+                    <option value="70" name="price">〜70万円</option>
+                    <option value="75" name="price">〜75万円</option>
+                    <option value="80" name="price">〜80万円</option>
+                    <option value="85" name="price">〜85万円</option>
+                    <option value="90" name="price">〜90万円</option>
+                    <option value="95" name="price">〜95万円</option>
+                    <option value="100" name="price">〜100万円</option>
+                    <option value="105" name="price">〜105万円</option>
+                    <option value="110" name="price">〜110万円</option>
+                    <option value="115" name="price">〜115万円</option>
+                    <option value="120" name="price">〜120万円</option>
+                    <option value="125" name="price">〜125万円</option>
+                    <option value="130" name="price">〜130万円</option>
+                    <option value="135" name="price">〜135万円</option>
+                    <option value="140" name="price">〜140万円</option>
+                    <option value="145" name="price">〜145万円</option>
+                    <option value="150" name="price">〜150万円</option>
+                    <option value="160" name="price">〜160万円</option>
+                    <option value="170" name="price">〜170万円</option>
+                    <option value="180" name="price">〜180万円</option>
+                    <option value="190" name="price">〜190万円</option>
+                    <option value="200" name="price">〜200万円</option>
+                    <option value="250" name="price">〜250万円</option>
+                    <option value="300" name="price">〜300万円</option>
+                    <option value="350" name="price">〜350万円</option>
+                    <option value="400" name="price">〜400万円</option>
+                    <option value="450" name="price">〜450万円</option>
+                    <option value="500" name="price">〜500万円</option>
+                    <option value="600" name="price">〜600万円</option>
+                    <option value="700" name="price">〜700万円</option>
+                    <option value="800" name="price">〜800万円</option>
+                    <option value="900" name="price">〜900万円</option>
+                    <option value="1000" name="price">〜1000万円</option>
+                </select>
+            <!-- </form> -->
+        </div>
+        <div class="detail_settings">
+            <h3 class="section_titles">Seats - 乗車定員数</h3>
+            <!-- <form action="{% url 'search_vehicles' %}" method="GET"> -->
+                <select class="filter_conditions right">
+                    <option value="">選択する</option>
+                    <option value="2">2人乗り</option>
+                    <option value="4">4人乗り</option>
+                    <option value="5">5人乗り</option>
+                    <option value="7">7人乗り</option>
+                    <option value="8">8人乗り</option>
+                    <option value="10">10人乗り</option>
+                </select>
+            <!-- </form> -->
+        </div>
+    </section>
+
+    <section class="detail_filtering">
+        <div class="detail_settings">
+            <h3 class="section_titles">Transmission - ミッション</h3>
+            <!-- <form action="{% url 'search_vehicles' %}" method="GET"> -->
+                <select class="filter_conditions left">
+                    <option value="">選択する</option>
+                    <option value="at">AT</option>
+                    <option value="mt">MT</option>
+                    <option value="automanual">Automanual</option>
+                    <option value="cvt">CVT</option>
+                    <option value="others">その他</option>
+                </select>
+            <!-- </form> -->
+        </div>
+        <div class="detail_settings">
+            <h3 class="section_titles">Drive System - 駆動方式</h3>
+            <!-- <form action="{% url 'search_vehicles' %}" method="GET"> -->
+                <select class="filter_conditions center">
+                    <option value="">選択する</option>
+                    <option value="">FF</option>
+                    <option value="">FR</option>
+                    <option value="">MR</option>
+                    <option value="">RR</option>
+                    <option value="">4WD</option>
+                </select>
+            <!-- </form> -->
+        </div>
+        <div class="detail_settings">
+            <h3 class="section_titles">Body Color - 車体色</h3>
+            <!-- <form action="{% url 'search_vehicles' %}" method="GET"> -->
+                <select class="filter_conditions right">
+                    <option value="">選択する</option>
+                    <option value="2">ホワイト系</option>
+                    <option value="4">ゴールド・シルバー系</option>
+                    <option value="5">ブラック系</option>
+                    <option value="7">ガンメタ系</option>
+                    <option value="8">グレー系</option>
+                    <option value="10">レッド系</option>
+                    <option value="10">グリーン系</option>
+                    <option value="10">ワイン系</option>
+                    <option value="10">ブルー系</option>
+                    <option value="10">イエロー系</option>
+                    <option value="10">オレンジ系</option>
+                    <option value="10">パープル系</option>
+                    <option value="10">ピンク系</option>
+                    <option value="10">ブラウン系</option>
+                    <option value="10">その他</option>
+                </select>
+        </div>
+    </section>
+    <div class="search_section">
+        <section class="search_btn_section">
+            <button type='submit' name='action' value='Search' class='search_btn'>Search</button>
+        </form>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
