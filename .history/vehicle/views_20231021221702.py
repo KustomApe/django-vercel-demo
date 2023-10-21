@@ -63,33 +63,33 @@ def search_vehicles(request):
     queryset_list = Vehicle.objects.order_by('-list_date').filter(is_published=True)
     vehicles_counter = Vehicle.objects.all().filter(is_published=True).count()
 
-    if 'keywords' in request.GET and request.GET['keywords']:
-        keywords = request.GET['keywords']
-        if keywords:
-            queryset_list = queryset_list.filter(
-            Q(model_num__icontains=keywords) |
-                Q(name__icontains=keywords) |
-                Q(maker__icontains=keywords) |
-                Q(body_type__icontains=keywords) |
-                Q(body_color__icontains=keywords) |
-                Q(car_age__icontains=keywords) |
-                Q(vin__icontains=keywords) |
-                Q(frame_num__icontains=keywords) |
-                Q(price__icontains=keywords)
-            ).distinct()
+     if 'keywords' in request.GET and request.GET['keywords']:
+         keywords = request.GET['keywords']
+         if keywords:
+             queryset_list = queryset_list.filter(
+                 Q(model_num__icontains=keywords) |
+                 Q(name__icontains=keywords) |
+                 Q(maker__icontains=keywords) |
+                 Q(body_type__icontains=keywords) |
+                 Q(body_color__icontains=keywords) |
+                 Q(car_age__icontains=keywords) |
+                 Q(vin__icontains=keywords) |
+                 Q(frame_num__icontains=keywords) |
+                 Q(price__icontains=keywords)
+             ).distinct()
 
 
-        paginator = Paginator(queryset_list, 15)
-        page = request.GET.get('page')
-        page_obj = paginator.get_page(page)
+         paginator = Paginator(queryset_list, 15)
+         page = request.GET.get('page')
+         page_obj = paginator.get_page(page)
 
-        get_dict_copy = request.GET.copy()
-        params = get_dict_copy.pop('page', True) and get_dict_copy.urlencode()
+         get_dict_copy = request.GET.copy()
+         params = get_dict_copy.pop('page', True) and get_dict_copy.urlencode()
 
     context = {
-            'page_obj': page_obj,
-            'params': params,
-            'vehicles_counter': vehicles_counter,
+             'page_obj': page_obj,
+             'params': params,
+             'vehicles_counter': vehicles_counter,
     }
     return render(request, 'vehicles/search_vehicles.html', context)
 

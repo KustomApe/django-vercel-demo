@@ -87,9 +87,9 @@ def search_vehicles(request):
         params = get_dict_copy.pop('page', True) and get_dict_copy.urlencode()
 
     context = {
-            'page_obj': page_obj,
-            'params': params,
-            'vehicles_counter': vehicles_counter,
+             'page_obj': page_obj,
+             'params': params,
+             'vehicles_counter': vehicles_counter,
     }
     return render(request, 'vehicles/search_vehicles.html', context)
 
